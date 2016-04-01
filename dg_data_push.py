@@ -6,10 +6,11 @@ import urllib2
 from poster.encode import multipart_encode
 from poster.streaminghttp import register_openers
 
-FILENAME = 'rasp1'
 TAG = 'rasp1'
+FILENAME = TAG
 ingest_url = 'https://dg-ingest-service.run.aws-usw02-pr.ice.predix.io/ingest'
 output = ''
+time_to_push = 3600
 
 cmd_out = os.popen('curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Authorization: Basic ZGlnaXRhbC1nYXJkZW46Y2hhbmdlbWU=" -H "Cache-Control: no-cache" -d "grant_type=client_credentials" "https://e97517f4-43d1-4263-9fd3-a16d67076d17.predix-uaa.run.aws-usw02-pr.ice.predix.io/oauth/token"').read()
 response = json.loads(str(cmd_out))
@@ -39,12 +40,9 @@ while True:
     h = randint(0, 100)
     l = randint(0, 100)
     output += str(ts) + ',' + TAG + ',' + str(m) + ',' + str(h) + ',' + str(l) + os.linesep
-    if count >= 5:
-        write_to_file(output)
-        output = ''
-        push_file()
-        break
-    count += 1
-    time.sleep(1)
+    write_to_file(output)
+    output = ''
+    push_file()
+    time.sleep(time_to_push)
 
 
