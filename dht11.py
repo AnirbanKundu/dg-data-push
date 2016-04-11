@@ -1,4 +1,4 @@
-mport RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import time
  
 def bin2dec(string_num):
