@@ -10,7 +10,7 @@ TAG = 'rasp1'
 FILENAME = TAG
 ingest_url = 'https://dg-ingest-service.run.aws-usw02-pr.ice.predix.io/ingest'
 output = ''
-time_to_push = 3600
+time_to_push = 60
 
 cmd_out = os.popen('curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Authorization: Basic ZGlnaXRhbC1nYXJkZW46Y2hhbmdlbWU=" -H "Cache-Control: no-cache" -d "grant_type=client_credentials" "https://e97517f4-43d1-4263-9fd3-a16d67076d17.predix-uaa.run.aws-usw02-pr.ice.predix.io/oauth/token"').read()
 response = json.loads(str(cmd_out))
